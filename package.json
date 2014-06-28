@@ -1,0 +1,27 @@
+{
+  "name": "fellowshipone",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Fellowship One (F1) API wrapper for Node.js",
+  "main": "lib/f1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fellowshipone",
+    "f1",
+    "api"
+  ],
+  "author": "Dave Henderson",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^0.9.0",
+    "jsvutil": "0.0.1",
+    "lodash": "^2.4.1",
+    "request": "^2.36.0"
+  },
+  "devDependencies": {
+    "should": "^4.0.4",
+    "sinon": "^1.10.2"
+  }
+}
