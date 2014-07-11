@@ -8,4 +8,4 @@ after_script:
 addons:
   code_climate:
     repo_token:
-      secure: "XgsAylKB5ldlhkMWE1Oo4sWScc6rddjTpdQnol6Ijb0Gvkg2NHoxON+L42YKHZRMt3dX+sIrIIalVSyTVa1+ulSMM0uFrQ1TrSjHq3EYwIYOwxU/3S3yuKdy/lqUZuG1axQnFgr0H7YhrV1tWmWTQtiB7Ph6r9l8CTSewG5bmdE="
+      secure: "sqtwPYQ3dOx+IZaNYCgGAIVAaMR20Bq/ErqxGLwtMN+zpIJYsZFHMf0ETbiNiokKSMGpg4xamMowhuwtYfJLZ204k3w4+fLvMIrJ47ArsaoSp+8oXiPhKGfDk8/geHXk0M4wwNlRU1v96mWVmwYa828s+aHLQmXqO1ik91ELyO0="
