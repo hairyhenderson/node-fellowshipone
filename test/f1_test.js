@@ -13,14 +13,14 @@ describe('F1', function() {
 		r.restore()
 	})
 	describe('constructor', function() {
-		it('errors given a non-object', function(done) {
+		it.skip('errors given a non-object', function(done) {
 			should(function() {
 				new F1("not an object")
 			}).
 			throw ()
 			done()
 		})
-		it('errors given non-schema-valid credentials', function(done) {
+		it.skip('errors given non-schema-valid credentials', function(done) {
 			should(function() {
 				new F1({
 					foo: true
@@ -29,7 +29,7 @@ describe('F1', function() {
 			throw ()
 			done()
 		})
-		it('sets the OAuth credentials as default request options', function(done) {
+		it.skip('sets the OAuth credentials as default request options', function(done) {
 			var opts = {
 				consumer_key: 'key',
 				consumer_secret: 'secret',
