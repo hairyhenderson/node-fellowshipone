@@ -11,7 +11,7 @@ A [Fellowship One](http://developer.fellowshipone.org) API wrapper for Node.js
 
 ## Install
 
-    $ npm install passport-fellowshipone
+    $ npm install fellowshipone
 
 ## Usage
 
