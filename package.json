@@ -1,7 +1,6 @@
 {
   "name": "fellowshipone",
-  "private": true,
-  "version": "0.1.0",
+  "version": "0.0.2",
   "description": "Fellowship One (F1) API wrapper for Node.js",
   "main": "lib/f1.js",
   "scripts": {
