@@ -36,8 +36,8 @@ var f1 = new F1({
     consumer_secret: '456789'
   }
 })
-f1.get_token(function(err, oauth_credentials, user_uri) {
-  request.get(user_uri, { oauth: oauth_credentials, json: true }, function(err, res, body) {
+f1.get_token(function(err, oauth_credentials, userURL) {
+  request.get(userURL, { oauth: oauth_credentials, json: true }, function(err, res, body) {
     console.log('hi there, %s %s', body.firstName, body.lastName)
   })
 })
@@ -60,7 +60,7 @@ var f1 = new F1(config)
 f1.authenticate(function(err) {
   console.log('got tokens: %s/%s', config.oauth_credentials.token,
     config.oauth_credentials.token_secret)
-  console.log('user URI is %s', config.userURI)
+  console.log('user URL is %s', config.userURL)
 })
 ```
 

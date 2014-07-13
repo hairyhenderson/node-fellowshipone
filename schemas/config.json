@@ -1,0 +1,34 @@
+{
+  "name": "f1config",
+  "type": "object",
+  "properties": {
+    "apiURL": {
+      "type": "string"
+    },
+    "oauth_credentials": {
+      "type": "object",
+      "properties": {
+        "consumer_secret": {
+          "type": "string"
+        },
+        "consumer_key": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "token_secret": {
+          "type": "string"
+        }
+      },
+      "required": ["consumer_secret", "consumer_key"]
+    },
+		"username": {
+			"type": "string"
+		},
+    "password": {
+      "type": "string"
+    }
+  },
+  "required": ["apiURL", "oauth_credentials", "username", "password"]
+}
