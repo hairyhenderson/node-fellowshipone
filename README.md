@@ -9,10 +9,10 @@ A [Fellowship One](http://developer.fellowshipone.org) API wrapper for Node.js
 
 Allows you to:
 
-- use a username/password to easily get OAuth tokens for dealing with Fellowship One
+- use a username/password to easily get OAuth tokens for dealing with Fellowship One (*i.e. 2nd-party credentials-based authentication*)
 - *other functionality coming later...*
 
-See [passport-fellowshipone](https://github.com/hairyhenderson/passport-fellowshipone) for another approach which doesn't require your app to deal with usernames & passwords.
+See [passport-fellowshipone](https://github.com/hairyhenderson/passport-fellowshipone) for 3rd-party OAuth authentication.
 
 Install
 -------
