@@ -2,7 +2,7 @@
   "name": "fellowshipone",
   "version": "0.0.2",
   "description": "Fellowship One (F1) API wrapper for Node.js",
-  "main": "lib/f1.js",
+  "main": "index.js",
   "scripts": {
     "test": "make test-travis"
   },
