@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/hairyhenderson/node-fellowshipone.png?label=ready&title=Ready)](https://waffle.io/hairyhenderson/node-fellowshipone)
 [![Build Status](https://img.shields.io/travis/hairyhenderson/node-fellowshipone.svg)](http://travis-ci.org/hairyhenderson/node-fellowshipone)[![Code Coverage](https://img.shields.io/codeclimate/coverage/github/hairyhenderson/node-fellowshipone.svg)](https://codeclimate.com/github/hairyhenderson/node-fellowshipone)[![Code Climate](https://img.shields.io/codeclimate/github/hairyhenderson/node-fellowshipone.svg)](https://codeclimate.com/github/hairyhenderson/node-fellowshipone)[![Dependency Status](https://img.shields.io/gemnasium/hairyhenderson/node-fellowshipone.svg)](https://gemnasium.com/hairyhenderson/node-fellowshipone)[![Current Version](https://img.shields.io/npm/v/fellowshipone.svg)](https://www.npmjs.org/package/fellowshipone)
 
 node-fellowshipone
