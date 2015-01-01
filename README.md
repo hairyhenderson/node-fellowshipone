@@ -77,4 +77,4 @@ License
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2014 Dave Henderson
+Copyright (c) 2014-2015 Dave Henderson
