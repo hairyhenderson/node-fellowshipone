@@ -1,7 +1,10 @@
-[![Build Status](https://img.shields.io/travis/hairyhenderson/node-fellowshipone.svg)](http://travis-ci.org/hairyhenderson/node-fellowshipone)[![Code Coverage](https://img.shields.io/codeclimate/coverage/github/hairyhenderson/node-fellowshipone.svg)](https://codeclimate.com/github/hairyhenderson/node-fellowshipone)[![Code Climate](https://img.shields.io/codeclimate/github/hairyhenderson/node-fellowshipone.svg)](https://codeclimate.com/github/hairyhenderson/node-fellowshipone)[![Dependency Status](https://img.shields.io/gemnasium/hairyhenderson/node-fellowshipone.svg)](https://gemnasium.com/hairyhenderson/node-fellowshipone)[![Current Version](https://img.shields.io/npm/v/fellowshipone.svg)](https://www.npmjs.org/package/fellowshipone)
+[![Build Status][travis-image]][travis-url]
+[![Code Coverage][coverage-image]][coverage-url]
+[![Code Climate][climate-image]][climate-url]
+[![Dependency Status][gemnasium-image]][gemnasium-url]
+[![Current Version][npm-image]][npm-url]
 
-node-fellowshipone
-==================
+# node-fellowshipone
 
 A [Fellowship One](http://developer.fellowshipone.org) API wrapper for Node.js
 
@@ -14,15 +17,13 @@ Allows you to:
 
 See [passport-fellowshipone](https://github.com/hairyhenderson/passport-fellowshipone) for 3rd-party OAuth authentication.
 
-Install
--------
+## Install
 
 ```
 $ npm install fellowshipone
 ```
 
-Usage
------
+## Usage
 
 ### Getting a token
 
@@ -64,17 +65,30 @@ f1.authenticate(function(err) {
 })
 ```
 
-Tests
------
+## Tests
 
 ```
 $ npm install --dev
 $ make test
 ```
 
-License
--------
+## License
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2014-2015 Dave Henderson
+
+[travis-image]: https://img.shields.io/travis/hairyhenderson/node-fellowshipone.svg?style=flat
+[travis-url]: https://travis-ci.org/hairyhenderson/node-fellowshipone
+
+[coverage-image]: https://img.shields.io/codeclimate/coverage/github/hairyhenderson/node-fellowshipone.svg?style=flat
+[coverage-url]: https://codeclimate.com/github/hairyhenderson/node-fellowshipone
+
+[climate-image]: https://img.shields.io/codeclimate/github/hairyhenderson/node-fellowshipone.svg?style=flat
+[climate-url]: https://codeclimate.com/github/hairyhenderson/node-fellowshipone
+
+[gemnasium-image]: https://img.shields.io/gemnasium/hairyhenderson/node-fellowshipone.svg?style=flat
+[gemnasium-url]: https://gemnasium.com/hairyhenderson/node-fellowshipone
+
+[npm-image]: https://img.shields.io/npm/v/fellowshipone.svg?style=flat
+[npm-url]: https://npmjs.org/package/fellowshipone
