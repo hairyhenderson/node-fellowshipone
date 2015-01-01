@@ -31,6 +31,68 @@ describe('People', function() {
     r.restore()
   })
 
+  describe('list', function() {
+    it('errors when request errors', function(done) {
+      r.expects('get').yields('error')
+
+      people.list(0, function(err, result) {
+        err.should.eql('error')
+        done()
+      })
+    })
+
+    it('errors when request gives non-200 status', function(done) {
+      r.expects('get').yields(null, {
+        statusCode: 404,
+        headers: {}
+      }, 'foo')
+
+      people.list(0, function(err, result) {
+        err.should.eql({
+          statusCode: 404,
+          headers: {},
+          message: 'foo'
+        })
+        done()
+      })
+    })
+
+    it('errors when request yields unexpected object', function(done) {
+      r.expects('get').yields(null, {
+        statusCode: 200,
+        headers: {}
+      }, {
+        foo: ''
+      })
+
+      people.list(42, function(err, results) {
+        err.should.eql({
+          statusCode: 502,
+          headers: {},
+          message: {
+            foo: ''
+          }
+        })
+        done()
+      })
+    })
+
+    it('returns the list of people', function(done) {
+      r.expects('get').yields(null, {
+        statusCode: 200
+      }, {
+        people: {
+          person: [{}, {}]
+        }
+      })
+
+      people.list(42, function(err, result) {
+        result.should.eql([{}, {}])
+        done()
+      })
+    })
+  })
+
   describe('search', function() {
     it('errors when request errors', function(done) {
       r.expects('get').yields('error')
