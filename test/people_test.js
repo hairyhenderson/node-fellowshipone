@@ -116,6 +116,92 @@ describe('People', function() {
     })
   })
 
+  describe('_post', function() {
+    it('errors when request errors', function(done) {
+      r.expects('post').yields('error')
+
+      people._post('/', {}, function(err, result) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('errors when request gives non-200 status', function(done) {
+      r.expects('post').yields(null, {
+        statusCode: 404,
+        headers: {}
+      }, 'foo')
+
+      people._post('/', {}, function(err, result) {
+        err.should.eql({
+          statusCode: 404,
+          headers: {},
+          message: 'foo'
+        })
+        verifyAll()
+        done()
+      })
+    })
+
+    it('yields the body and headers when successful without query', function(done) {
+      r.expects('post').withArgs({
+        uri: 'http://example.com/mypath',
+        oauth: {
+          consumer_key: '123',
+          consumer_secret: 'secret'
+        },
+        headers: {
+          accept: People.MEDIA_TYPE,
+          'content-type': People.MEDIA_TYPE
+        },
+        json: {}
+      }).yields(null, {
+        statusCode: 200,
+        headers: {}
+      }, 'body')
+
+      people._post('/mypath', {}, function(err, body, headers) {
+        body.should.eql('body')
+        headers.should.eql({})
+        verifyAll()
+        done()
+      })
+    })
+
+    it('yields the body and headers when successful with query', function(done) {
+      var query = {
+        query: 42
+      }
+      var body = {
+        foo: true
+      }
+      r.expects('post').withArgs({
+        uri: 'http://example.com/mypath',
+        oauth: {
+          consumer_key: '123',
+          consumer_secret: 'secret'
+        },
+        headers: {
+          accept: People.MEDIA_TYPE,
+          'content-type': People.MEDIA_TYPE
+        },
+        json: body,
+        qs: query
+      }).yields(null, {
+        statusCode: 200,
+        headers: {}
+      }, 'body')
+
+      people._post('/mypath', query, body, function(err, body, headers) {
+        body.should.eql('body')
+        headers.should.eql({})
+        verifyAll()
+        done()
+      })
+    })
+  })
+
   describe('list', function() {
     it('errors when request errors', function(done) {
       _people.expects('_get').yields('error')
@@ -245,6 +331,102 @@ describe('People', function() {
         result.should.eql({
           results: 100
         })
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+  describe('new', function() {
+    it('errors when request errors', function(done) {
+      _people.expects('_get').withArgs('/People/New').yields('error')
+
+      people.new(function(err, result) {
+        err.should.eql('error')
+
+        verifyAll()
+        done()
+      })
+    })
+
+    it('errors when request yields unexpected object', function(done) {
+      _people.expects('_get').withArgs('/People/New').yields(null, {
+        foo: ''
+      })
+
+      people.new(function(err, result, headers) {
+        err.should.eql({
+          statusCode: 502,
+          headers: headers,
+          message: {
+            foo: ''
+          }
+        })
+        verifyAll()
+        done()
+      })
+    })
+
+    it('returns the household template', function(done) {
+      _people.expects('_get').withArgs('/People/New').yields(null, {
+        person: {
+          firstName: 'Joe'
+        }
+      })
+
+      people.new(function(err, person) {
+        person.should.eql({
+          firstName: 'Joe'
+        })
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+  describe('create', function() {
+    it('errors when call to new errors', function(done) {
+      _people.expects('new').yields('error')
+
+      people.create({}, function(err, result) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('should yield error when call to _post fails', function(done) {
+      _people.expects('new').yields(null, {
+        firstName: '',
+        lastName: ''
+      })
+      _people.expects('_post').yields('error')
+
+      people.create({}, function(err, result) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('posts merged body to /People', function(done) {
+      var household = {
+        firstName: 'Jack'
+      }
+      var mergedHousehold = {
+        firstName: household.firstName,
+        lastName: ''
+      }
+
+      _people.expects('new').yields(null, {
+        firstName: '',
+        lastName: ''
+      })
+      _people.expects('_post').withArgs('/People', mergedHousehold).yields(null, '')
+
+      people.create(household, function(err, result) {
+        should(err).not.exist
+        result.should.eql('')
         verifyAll()
         done()
       })
