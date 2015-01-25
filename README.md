@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/hairyhenderson/node-fellowshipone.png?label=ready&title=Ready)](https://waffle.io/hairyhenderson/node-fellowshipone)
 [![Build Status][travis-image]][travis-url]
 [![Code Coverage][coverage-image]][coverage-url]
 [![Code Climate][climate-image]][climate-url]
