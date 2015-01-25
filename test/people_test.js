@@ -172,7 +172,7 @@ describe('People', function() {
     })
 
     it('errors when request yields unexpected object', function(done) {
-      _people.expects('_get').withArgs('/Person/42').yields(null, {
+      _people.expects('_get').withArgs('/People/42').yields(null, {
         foo: ''
       })
 
@@ -190,7 +190,7 @@ describe('People', function() {
     })
 
     it('returns the person object', function(done) {
-      _people.expects('_get').withArgs('/Person/42').yields(null, {
+      _people.expects('_get').withArgs('/People/42').yields(null, {
         person: {
           firstName: 'Joe'
         }
