@@ -1,9 +1,11 @@
-[![Stories in Ready](https://badge.waffle.io/hairyhenderson/node-fellowshipone.png?label=ready&title=Ready)](https://waffle.io/hairyhenderson/node-fellowshipone)
 [![Build Status][travis-image]][travis-url]
 [![Code Coverage][coverage-image]][coverage-url]
 [![Code Climate][climate-image]][climate-url]
 [![Dependency Status][gemnasium-image]][gemnasium-url]
 [![Current Version][npm-image]][npm-url]
+
+[![Stories in Ready][waffle-ready-image]][waffle-url]
+[![Stories In Progress][waffle-progress-image]][waffle-url]
 
 # node-fellowshipone
 
@@ -93,3 +95,7 @@ Copyright (c) 2014-2015 Dave Henderson
 
 [npm-image]: https://img.shields.io/npm/v/fellowshipone.svg?style=flat
 [npm-url]: https://npmjs.org/package/fellowshipone
+
+[waffle-ready-image]: https://badge.waffle.io/hairyhenderson/node-fellowshipone.svg?label=ready&title=Ready
+[waffle-progress-image]: https://badge.waffle.io/hairyhenderson/node-fellowshipone.svg?label=in+progress&title=In+Progress
+[waffle-url]: https://waffle.io/hairyhenderson/node-fellowshipone
