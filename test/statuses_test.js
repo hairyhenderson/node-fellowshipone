@@ -146,7 +146,7 @@ describe('Statuses', function() {
     })
 
     it('returns the list of statuses', function(done) {
-      _statuses.expects('_get').yields(null, {
+      _statuses.expects('_get').withArgs('/Statuses').yields(null, {
         statuses: {
           status: [{}, {}]
         }
