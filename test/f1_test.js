@@ -168,22 +168,22 @@ describe('F1', function() {
   })
 
   describe('authenticate', function() {
-		var f
-		beforeEach(function() {
-			f = sinon.mock(f1)
-		})
-		afterEach(function() {
-			f.restore()
-		})
+    var f
+    beforeEach(function() {
+      f = sinon.mock(f1)
+    })
+    afterEach(function() {
+      f.restore()
+    })
     it('delegates to get_token', function(done) {
-			f.expects('get_token').yields('err', 'creds', 'uri')
+      f.expects('get_token').yields('err', 'creds', 'uri')
 
-			f1.authenticate(function(err) {
-				arguments.length.should.eql(1)
-				err.should.eql('err')
-				f.verify()
-				done()
-			})
-		})
+      f1.authenticate(function(err) {
+        arguments.length.should.eql(1)
+        err.should.eql('err')
+        f.verify()
+        done()
+      })
+    })
   })
 })

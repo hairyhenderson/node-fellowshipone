@@ -22,7 +22,12 @@ describe('F1Resource', function() {
       password: 'swordfish'
     }
     f1 = new F1(config)
-    f1resource = new F1Resource(f1, MEDIA_TYPE)
+    f1resource = new F1Resource(f1, {
+      mediaType: MEDIA_TYPE,
+      resourceName: 'datum',
+      resourceNamePlural: 'data',
+      path: '/Data'
+    })
     _f1resource = sinon.mock(f1resource)
   })
 
@@ -34,6 +39,30 @@ describe('F1Resource', function() {
   afterEach(function() {
     r.restore()
     _f1resource.restore()
+  })
+
+  describe('constructor', function() {
+    var def
+    beforeEach(function() {
+      def = new F1Resource(f1, {
+        resourceName: 'foo'
+      })
+    })
+    it('defaults to empty options', function() {
+      new F1Resource(f1).options.should.eql({})
+    })
+    it('mediaType defaults to application/json', function() {
+      def.mediaType.should.eql('application/json')
+    })
+    it('resourceNamePlural makes a dumb guess', function() {
+      def.resourceNamePlural.should.eql('foos')
+    })
+    it('path defaults to capitalized plural name', function() {
+      def.path.should.eql('/Foos')
+    })
+    it('searchParams default to empty object', function() {
+      def.searchParams.should.eql({})
+    })
   })
 
   describe('_get', function() {
@@ -198,6 +227,259 @@ describe('F1Resource', function() {
       f1resource._post('/mypath', query, body, function(err, body, headers) {
         body.should.eql('body')
         headers.should.eql({})
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+  describe('list', function() {
+    it('errors when request errors', function(done) {
+      _f1resource.expects('_get').yields('error')
+
+      f1resource.list(function(err, result) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('errors when request yields unexpected object', function(done) {
+      _f1resource.expects('_get').yields(null, {
+        foo: ''
+      }, {})
+
+      f1resource.list(function(err, results) {
+        err.should.eql({
+          statusCode: 502,
+          headers: {},
+          message: {
+            foo: ''
+          }
+        })
+        verifyAll()
+        done()
+      })
+    })
+
+    it('returns the list of resources', function(done) {
+      _f1resource.expects('_get').withArgs('/Data').yields(null, {
+        data: {
+          datum: [{}, {}]
+        }
+      }, {})
+
+      f1resource.list(function(err, result) {
+        result.should.eql([{}, {}])
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+  describe('show', function() {
+    it('errors when request errors', function(done) {
+      _f1resource.expects('_get').yields('error')
+
+      f1resource.show(42, function(err, result) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('errors when request yields unexpected object', function(done) {
+      _f1resource.expects('_get').withArgs('/Data/42').yields(null, {
+        foo: ''
+      })
+
+      f1resource.show(42, function(err, result, headers) {
+        err.should.eql({
+          statusCode: 502,
+          headers: headers,
+          message: {
+            foo: ''
+          }
+        })
+        verifyAll()
+        done()
+      })
+    })
+
+    it('returns the object', function(done) {
+      _f1resource.expects('_get').withArgs('/Data/42').yields(null, {
+        datum: {
+          foo: 'bar'
+        }
+      })
+
+      f1resource.show(42, function(err, result) {
+        result.should.eql({
+          foo: 'bar'
+        })
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+  describe('new', function() {
+    it('errors when request errors', function(done) {
+      _f1resource.expects('_get').withArgs('/Data/New').yields('error')
+
+      f1resource.new(function(err, result) {
+        err.should.eql('error')
+
+        verifyAll()
+        done()
+      })
+    })
+
+    it('errors when request yields unexpected object', function(done) {
+      _f1resource.expects('_get').withArgs('/Data/New').yields(null, {
+        foo: ''
+      })
+
+      f1resource.new(function(err, result, headers) {
+        err.should.eql({
+          statusCode: 502,
+          headers: headers,
+          message: {
+            foo: ''
+          }
+        })
+        verifyAll()
+        done()
+      })
+    })
+
+    it('returns the household template', function(done) {
+      _f1resource.expects('_get').withArgs('/Data/New').yields(null, {
+        datum: {
+          firstName: 'Joe'
+        }
+      })
+
+      f1resource.new(function(err, person) {
+        person.should.eql({
+          firstName: 'Joe'
+        })
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+  describe('create', function() {
+    it('errors when call to new errors', function(done) {
+      _f1resource.expects('new').yields('error')
+
+      f1resource.create({}, function(err, result) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('should yield error when call to _post fails', function(done) {
+      _f1resource.expects('new').yields(null, {
+        firstName: '',
+        lastName: ''
+      })
+      _f1resource.expects('_post').yields('error')
+
+      f1resource.create({}, function(err, result) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('posts merged body to /Data', function(done) {
+      var datum = {
+        firstName: 'Jack'
+      }
+      var mergedDatum = {
+        firstName: datum.firstName,
+        lastName: ''
+      }
+
+      _f1resource.expects('new').yields(null, {
+        firstName: '',
+        lastName: ''
+      })
+      _f1resource.expects('_post').withArgs('/Data', mergedDatum).yields(null, '')
+
+      f1resource.create(datum, function(err, result) {
+        should(err).not.exist
+        result.should.eql('')
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+  describe('search', function() {
+    it('errors when request errors', function(done) {
+      _f1resource.expects('_get').yields('error')
+
+      f1resource.search({}, function(err, result) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('returns the search results', function(done) {
+      _f1resource.expects('_get').yields(null, {
+        results: 100
+      })
+
+      f1resource.search({}, function(err, result) {
+        result.should.eql({
+          results: 100
+        })
+        verifyAll()
+        done()
+      })
+    })
+
+    it('uses given search parameters', function(done) {
+      _f1resource.expects('_get').withArgs('/Data/Search', {
+        searchFor: 'foo'
+      }).yields(null, {
+        results: 100
+      })
+
+      f1resource.search({
+        searchFor: 'foo'
+      }, function(err, result) {
+        result.should.eql({
+          results: 100
+        })
+        verifyAll()
+        done()
+      })
+    })
+
+    it('supports default search parameters', function(done) {
+      _f1resource.expects('_get').withArgs('/Data/Search', {
+        default: 'bar',
+        searchFor: 'foo'
+      }).yields(null, {
+        results: 100
+      })
+
+      f1resource.searchParams = {
+        default: 'bar'
+      }
+
+      f1resource.search({
+        searchFor: 'foo'
+      }, function(err, result) {
+        result.should.eql({
+          results: 100
+        })
         verifyAll()
         done()
       })
