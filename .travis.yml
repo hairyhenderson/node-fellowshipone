@@ -2,7 +2,8 @@ language: "node_js"
 node_js:
   - 0.10
   - 0.11
-  - iojs-v1.0
+# not until February...
+#  - iojs
 notifications:
   email: false
 after_script:
