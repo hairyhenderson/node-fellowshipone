@@ -94,7 +94,8 @@ describe('F1Resource', function() {
     })
 
     it('yields the body and headers when successful without query', function(done) {
-      r.expects('get').withArgs('http://example.com/mypath', {
+      r.expects('get').withArgs({
+        uri: 'http://example.com/mypath',
         oauth: {
           consumer_key: '123',
           consumer_secret: 'secret'
@@ -118,7 +119,8 @@ describe('F1Resource', function() {
     })
 
     it('yields the body and headers when successful with query', function(done) {
-      r.expects('get').withArgs('http://example.com/mypath', {
+      r.expects('get').withArgs({
+        uri: 'http://example.com/mypath',
         oauth: {
           consumer_key: '123',
           consumer_secret: 'secret'

@@ -1,6 +1,6 @@
 {
   "name": "fellowshipone",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Fellowship One (F1) API wrapper for Node.js",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "~0.9.0",
+    "debug": "^2.1.1",
     "jjv": "~1.0.2",
     "lodash": "~3.0.0",
     "request": "~2.51.0"
