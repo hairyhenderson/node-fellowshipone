@@ -1,14 +1,14 @@
-language: "node_js"
+language: node_js
 node_js:
-  - 0.10
-  - 0.11
-# not until February...
-#  - iojs
+- 0.1
+- 0.11
 notifications:
   email: false
+  slack:
+    secure: Ebs09O/z4GQHIm9VvfrTCpx4sFFVXAFmFMn8lOHCEwHn3GnDxebQNkosOep++xw58BQ15ecTUrdromZ2Q6VP1kKYiupkYjHHF/c1uJUhX9j2btxiU9lKu+l7SvkP5Epzk3OtLVRvzkJEg0I7IWlWvjKGyYQm2uycIOz+tTh9d3M=
 after_script:
 - cat coverage/lcov.info | codeclimate
 addons:
   code_climate:
     repo_token:
-      secure: "sqtwPYQ3dOx+IZaNYCgGAIVAaMR20Bq/ErqxGLwtMN+zpIJYsZFHMf0ETbiNiokKSMGpg4xamMowhuwtYfJLZ204k3w4+fLvMIrJ47ArsaoSp+8oXiPhKGfDk8/geHXk0M4wwNlRU1v96mWVmwYa828s+aHLQmXqO1ik91ELyO0="
+      secure: sqtwPYQ3dOx+IZaNYCgGAIVAaMR20Bq/ErqxGLwtMN+zpIJYsZFHMf0ETbiNiokKSMGpg4xamMowhuwtYfJLZ204k3w4+fLvMIrJ47ArsaoSp+8oXiPhKGfDk8/geHXk0M4wwNlRU1v96mWVmwYa828s+aHLQmXqO1ik91ELyO0=
