@@ -18,7 +18,7 @@ describe('HouseholdCommunications', function() {
       password: 'swordfish'
     }
     f1 = new F1(config)
-    household_comms = new HouseholdCommunications(f1, 123)
+    household_comms = new HouseholdCommunications(f1, '123')
   })
 
   it('inherits from F1Resource', function() {
