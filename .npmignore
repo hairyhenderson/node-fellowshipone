@@ -3,6 +3,10 @@ Makefile
 doc/
 examples/
 test/
+.hound.yml
+.travis.yml
+.jshintrc
+jshint.json
 
 # Mac OS X
 .DS_Store
