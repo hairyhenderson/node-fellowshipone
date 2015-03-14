@@ -402,8 +402,10 @@ describe('F1Resource', function() {
         firstName: 'Jack'
       }
       var mergedDatum = {
-        firstName: datum.firstName,
-        lastName: ''
+        datum: {
+          firstName: datum.firstName,
+          lastName: ''
+        }
       }
 
       _f1resource.expects('new').yields(null, {
