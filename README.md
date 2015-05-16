@@ -16,7 +16,7 @@ A [Fellowship One](http://developer.fellowshipone.org) API wrapper for Node.js
 Allows you to:
 
 - use a username/password to easily get OAuth tokens for dealing with Fellowship One (*i.e. 2nd-party credentials-based authentication*)
-- *other functionality coming later...*
+- interface with the F1 API in a slightly-simplified way
 
 See [passport-fellowshipone](https://github.com/hairyhenderson/passport-fellowshipone) for 3rd-party OAuth authentication.
 
@@ -67,6 +67,40 @@ f1.authenticate(function(err) {
   console.log('user URL is %s', config.userURL)
 })
 ```
+
+## API Support
+
+We're aiming to support all of the F1 API by v1.0.0. The (more-or-less) current support state is:
+
+- [ ] [Accounts](http://developer.fellowshipone.com/docs/v1/Util/accounts.help)
+- [People API Realm](http://developer.fellowshipone.com/docs/v1/util/docs.help)
+  - [x] Households
+    - [x] HouseholdMemberTypes
+  - [x] People
+    - [ ] People Attributes
+    - [ ] People Images
+  - [x] Addresses
+    - [x] AddressTypes
+  - [ ] Attributes
+    - [ ] AttributeGroups
+  - [x] Communications
+    - [x] CommunicationTypes
+  - [ ] Denominations
+  - [ ] Occupations
+  - [ ] Schools
+  - [x] Statuses
+    - [ ] SubStatuses
+  - [ ] Requirements
+  - [ ] Requirement Statuses
+  - [ ] Background Check Statuses
+  - [ ] People Requirements
+  - [ ] Requirement Documents
+- [Giving API Realm](http://developer.fellowshipone.com/docs/giving/v1/util/docs.help)
+  - _not yet_
+- [Groups API Realm](http://developer.fellowshipone.com/docs/groups/v1/util/docs.help)
+  - _not yet_
+- [Events API Realm](http://developer.fellowshipone.com/docs/events/v1/util/docs.help)
+  - _not yet_
 
 ## Tests
 
