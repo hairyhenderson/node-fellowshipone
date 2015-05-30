@@ -28,7 +28,7 @@
     "debug": "^2.2.0",
     "jjv": "~1.0.2",
     "lodash": "~3.9.3",
-    "request": "~2.55.0"
+    "request": "~2.56.0"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "~0.0.4",
