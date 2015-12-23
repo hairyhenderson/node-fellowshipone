@@ -1,13 +1,12 @@
-'use strict';
-var should = require('should')
+require('should')
 var F1 = require('../lib/f1')
 var Statuses = require('../lib/statuses')
 var F1Resource = require('../lib/f1resource')
 
-describe('Statuses', function() {
-  var statuses, f1, config;
+describe('Statuses', function () {
+  var statuses, f1, config
 
-  beforeEach(function() {
+  beforeEach(function () {
     config = {
       apiURL: 'http://example.com',
       oauth_credentials: {
@@ -21,7 +20,7 @@ describe('Statuses', function() {
     statuses = new Statuses(f1)
   })
 
-  it('inherits from F1Resource', function() {
+  it('inherits from F1Resource', function () {
     (statuses instanceof F1Resource).should.be.true
   })
 })

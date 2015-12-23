@@ -1,4 +1,3 @@
-'use strict';
 var sinon = require('sinon')
 var should = require('should')
 var request = require('request')
@@ -7,10 +6,10 @@ var F1Resource = require('../lib/f1resource')
 
 var MEDIA_TYPE = 'text/plain'
 
-describe('F1Resource', function() {
-  var r, f1resource, f1, config, _f1resource;
+describe('F1Resource', function () {
+  var r, f1resource, f1, config, _f1resource
 
-  beforeEach(function() {
+  beforeEach(function () {
     r = sinon.mock(request)
     config = {
       apiURL: 'http://example.com',
@@ -31,58 +30,58 @@ describe('F1Resource', function() {
     _f1resource = sinon.mock(f1resource)
   })
 
-  function verifyAll() {
+  function verifyAll () {
     r.verify()
     _f1resource.verify()
   }
 
-  afterEach(function() {
+  afterEach(function () {
     r.restore()
     _f1resource.restore()
   })
 
-  describe('constructor', function() {
+  describe('constructor', function () {
     var def
-    beforeEach(function() {
+    beforeEach(function () {
       def = new F1Resource(f1, {
         resourceName: 'foo'
       })
     })
-    it('defaults to empty options', function() {
+    it('defaults to empty options', function () {
       new F1Resource(f1).options.should.eql({})
     })
-    it('mediaType defaults to application/json', function() {
+    it('mediaType defaults to application/json', function () {
       def.mediaType.should.eql('application/json')
     })
-    it('resourceNamePlural makes a dumb guess', function() {
+    it('resourceNamePlural makes a dumb guess', function () {
       def.resourceNamePlural.should.eql('foos')
     })
-    it('path defaults to capitalized plural name', function() {
+    it('path defaults to capitalized plural name', function () {
       def.path.should.eql('/Foos')
     })
-    it('searchParams default to empty object', function() {
+    it('searchParams default to empty object', function () {
       def.searchParams.should.eql({})
     })
   })
 
-  describe('_get', function() {
-    it('errors when request errors', function(done) {
+  describe('_get', function () {
+    it('errors when request errors', function (done) {
       r.expects('get').yields('error')
 
-      f1resource._get('/', function(err, result) {
+      f1resource._get('/', function (err, result) {
         err.should.eql('error')
         verifyAll()
         done()
       })
     })
 
-    it('errors when request gives non-200 status', function(done) {
+    it('errors when request gives non-200 status', function (done) {
       r.expects('get').yields(null, {
         statusCode: 404,
         headers: {}
       }, 'foo')
 
-      f1resource._get('/', function(err, result) {
+      f1resource._get('/', function (err, result) {
         err.should.eql({
           statusCode: 404,
           headers: {},
@@ -93,7 +92,7 @@ describe('F1Resource', function() {
       })
     })
 
-    it('yields the body and headers when successful without query', function(done) {
+    it('yields the body and headers when successful without query', function (done) {
       r.expects('get').withArgs({
         uri: 'http://example.com/mypath',
         oauth: {
@@ -110,7 +109,8 @@ describe('F1Resource', function() {
         headers: {}
       }, 'body')
 
-      f1resource._get('/mypath', function(err, body, headers) {
+      f1resource._get('/mypath', function (err, body, headers) {
+        should(err).not.exist
         body.should.eql('body')
         headers.should.eql({})
         verifyAll()
@@ -118,7 +118,7 @@ describe('F1Resource', function() {
       })
     })
 
-    it('yields the body and headers when successful with query', function(done) {
+    it('yields the body and headers when successful with query', function (done) {
       r.expects('get').withArgs({
         uri: 'http://example.com/mypath',
         oauth: {
@@ -140,7 +140,8 @@ describe('F1Resource', function() {
 
       f1resource._get('/mypath', {
         query: 42
-      }, function(err, body, headers) {
+      }, function (err, body, headers) {
+        should(err).not.exist
         body.should.eql('body')
         headers.should.eql({})
         verifyAll()
@@ -149,24 +150,24 @@ describe('F1Resource', function() {
     })
   })
 
-  describe('_post', function() {
-    it('errors when request errors', function(done) {
+  describe('_post', function () {
+    it('errors when request errors', function (done) {
       r.expects('post').yields('error')
 
-      f1resource._post('/', {}, function(err, result) {
+      f1resource._post('/', {}, function (err, result) {
         err.should.eql('error')
         verifyAll()
         done()
       })
     })
 
-    it('errors when request gives non-200 status', function(done) {
+    it('errors when request gives non-200 status', function (done) {
       r.expects('post').yields(null, {
         statusCode: 404,
         headers: {}
       }, 'foo')
 
-      f1resource._post('/', {}, function(err, result) {
+      f1resource._post('/', {}, function (err, result) {
         err.should.eql({
           statusCode: 404,
           headers: {},
@@ -177,7 +178,7 @@ describe('F1Resource', function() {
       })
     })
 
-    it('yields the body and headers when successful without query', function(done) {
+    it('yields the body and headers when successful without query', function (done) {
       r.expects('post').withArgs({
         uri: 'http://example.com/mypath',
         oauth: {
@@ -194,7 +195,8 @@ describe('F1Resource', function() {
         headers: {}
       }, 'body')
 
-      f1resource._post('/mypath', {}, function(err, body, headers) {
+      f1resource._post('/mypath', {}, function (err, body, headers) {
+        should(err).not.exist
         body.should.eql('body')
         headers.should.eql({})
         verifyAll()
@@ -202,7 +204,7 @@ describe('F1Resource', function() {
       })
     })
 
-    it('yields the body and headers when successful with query', function(done) {
+    it('yields the body and headers when successful with query', function (done) {
       var query = {
         query: 42
       }
@@ -226,7 +228,8 @@ describe('F1Resource', function() {
         headers: {}
       }, 'body')
 
-      f1resource._post('/mypath', query, body, function(err, body, headers) {
+      f1resource._post('/mypath', query, body, function (err, body, headers) {
+        should(err).not.exist
         body.should.eql('body')
         headers.should.eql({})
         verifyAll()
@@ -235,23 +238,23 @@ describe('F1Resource', function() {
     })
   })
 
-  describe('list', function() {
-    it('errors when request errors', function(done) {
+  describe('list', function () {
+    it('errors when request errors', function (done) {
       _f1resource.expects('_get').yields('error')
 
-      f1resource.list(function(err, result) {
+      f1resource.list(function (err, result) {
         err.should.eql('error')
         verifyAll()
         done()
       })
     })
 
-    it('errors when request yields unexpected object', function(done) {
+    it('errors when request yields unexpected object', function (done) {
       _f1resource.expects('_get').yields(null, {
         foo: ''
       }, {})
 
-      f1resource.list(function(err, results) {
+      f1resource.list(function (err, results) {
         err.should.eql({
           statusCode: 502,
           headers: {},
@@ -264,14 +267,15 @@ describe('F1Resource', function() {
       })
     })
 
-    it('returns the list of resources', function(done) {
+    it('returns the list of resources', function (done) {
       _f1resource.expects('_get').withArgs('/Data').yields(null, {
         data: {
           datum: [{}, {}]
         }
       }, {})
 
-      f1resource.list(function(err, result) {
+      f1resource.list(function (err, result) {
+        should(err).not.exist
         result.should.eql([{}, {}])
         verifyAll()
         done()
@@ -279,23 +283,23 @@ describe('F1Resource', function() {
     })
   })
 
-  describe('show', function() {
-    it('errors when request errors', function(done) {
+  describe('show', function () {
+    it('errors when request errors', function (done) {
       _f1resource.expects('_get').yields('error')
 
-      f1resource.show(42, function(err, result) {
+      f1resource.show(42, function (err, result) {
         err.should.eql('error')
         verifyAll()
         done()
       })
     })
 
-    it('errors when request yields unexpected object', function(done) {
+    it('errors when request yields unexpected object', function (done) {
       _f1resource.expects('_get').withArgs('/Data/42').yields(null, {
         foo: ''
       })
 
-      f1resource.show(42, function(err, result, headers) {
+      f1resource.show(42, function (err, result, headers) {
         err.should.eql({
           statusCode: 502,
           headers: headers,
@@ -308,14 +312,15 @@ describe('F1Resource', function() {
       })
     })
 
-    it('returns the object', function(done) {
+    it('returns the object', function (done) {
       _f1resource.expects('_get').withArgs('/Data/42').yields(null, {
         datum: {
           foo: 'bar'
         }
       })
 
-      f1resource.show(42, function(err, result) {
+      f1resource.show(42, function (err, result) {
+        should(err).not.exist
         result.should.eql({
           foo: 'bar'
         })
@@ -325,11 +330,11 @@ describe('F1Resource', function() {
     })
   })
 
-  describe('new', function() {
-    it('errors when request errors', function(done) {
+  describe('new', function () {
+    it('errors when request errors', function (done) {
       _f1resource.expects('_get').withArgs('/Data/New').yields('error')
 
-      f1resource.new(function(err, result) {
+      f1resource.new(function (err, result) {
         err.should.eql('error')
 
         verifyAll()
@@ -337,12 +342,12 @@ describe('F1Resource', function() {
       })
     })
 
-    it('errors when request yields unexpected object', function(done) {
+    it('errors when request yields unexpected object', function (done) {
       _f1resource.expects('_get').withArgs('/Data/New').yields(null, {
         foo: ''
       })
 
-      f1resource.new(function(err, result, headers) {
+      f1resource.new(function (err, result, headers) {
         err.should.eql({
           statusCode: 502,
           headers: headers,
@@ -355,14 +360,15 @@ describe('F1Resource', function() {
       })
     })
 
-    it('returns the household template', function(done) {
+    it('returns the household template', function (done) {
       _f1resource.expects('_get').withArgs('/Data/New').yields(null, {
         datum: {
           firstName: 'Joe'
         }
       })
 
-      f1resource.new(function(err, person) {
+      f1resource.new(function (err, person) {
+        should(err).not.exist
         person.should.eql({
           firstName: 'Joe'
         })
@@ -372,32 +378,33 @@ describe('F1Resource', function() {
     })
   })
 
-  describe('create', function() {
-    it('errors when call to new errors', function(done) {
+  describe('create', function () {
+    it('errors when call to new errors', function (done) {
       _f1resource.expects('new').yields('error')
 
-      f1resource.create({}, function(err, result) {
+      f1resource.create({}, function (err, result) {
         err.should.eql('error')
         verifyAll()
         done()
       })
     })
 
-    it('should yield error when call to _post fails', function(done) {
+    it('should yield error when call to _post fails', function (done) {
       _f1resource.expects('new').yields(null, {
         firstName: '',
         lastName: ''
       })
       _f1resource.expects('_post').yields('error')
 
-      f1resource.create({}, function(err, result) {
+      f1resource.create({}, function (err, result) {
+        should(err).not.exist
         err.should.eql('error')
         verifyAll()
         done()
       })
     })
 
-    it('posts merged body to /Data', function(done) {
+    it('posts merged body to /Data', function (done) {
       var datum = {
         firstName: 'Jack'
       }
@@ -414,7 +421,7 @@ describe('F1Resource', function() {
       })
       _f1resource.expects('_post').withArgs('/Data', mergedDatum).yields(null, '')
 
-      f1resource.create(datum, function(err, result) {
+      f1resource.create(datum, function (err, result) {
         should(err).not.exist
         result.should.eql('')
         verifyAll()
@@ -423,23 +430,24 @@ describe('F1Resource', function() {
     })
   })
 
-  describe('search', function() {
-    it('errors when request errors', function(done) {
+  describe('search', function () {
+    it('errors when request errors', function (done) {
       _f1resource.expects('_get').yields('error')
 
-      f1resource.search({}, function(err, result) {
+      f1resource.search({}, function (err, result) {
         err.should.eql('error')
         verifyAll()
         done()
       })
     })
 
-    it('returns the search results', function(done) {
+    it('returns the search results', function (done) {
       _f1resource.expects('_get').yields(null, {
         results: 100
       })
 
-      f1resource.search({}, function(err, result) {
+      f1resource.search({}, function (err, result) {
+        should(err).not.exist
         result.should.eql({
           results: 100
         })
@@ -448,7 +456,7 @@ describe('F1Resource', function() {
       })
     })
 
-    it('uses given search parameters', function(done) {
+    it('uses given search parameters', function (done) {
       _f1resource.expects('_get').withArgs('/Data/Search', {
         searchFor: 'foo'
       }).yields(null, {
@@ -457,7 +465,8 @@ describe('F1Resource', function() {
 
       f1resource.search({
         searchFor: 'foo'
-      }, function(err, result) {
+      }, function (err, result) {
+        should(err).not.exist
         result.should.eql({
           results: 100
         })
@@ -466,7 +475,7 @@ describe('F1Resource', function() {
       })
     })
 
-    it('supports default search parameters', function(done) {
+    it('supports default search parameters', function (done) {
       _f1resource.expects('_get').withArgs('/Data/Search', {
         default: 'bar',
         searchFor: 'foo'
@@ -480,7 +489,8 @@ describe('F1Resource', function() {
 
       f1resource.search({
         searchFor: 'foo'
-      }, function(err, result) {
+      }, function (err, result) {
+        should(err).not.exist
         result.should.eql({
           results: 100
         })

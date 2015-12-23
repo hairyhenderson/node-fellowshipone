@@ -1,5 +1,3 @@
-'use strict';
-
 var sinon = require('sinon')
 var should = require('should')
 var request = require('request')
@@ -7,10 +5,10 @@ var F1 = require('../lib/f1')
 var Addresses = require('../lib/addresses')
 var F1Resource = require('../lib/f1resource')
 
-describe('Addresses', function() {
+describe('Addresses', function () {
   var addresses, f1, r, config, _addresses
 
-  beforeEach(function() {
+  beforeEach(function () {
     r = sinon.mock(request)
     config = {
       apiURL: 'http://example.com',
@@ -26,46 +24,46 @@ describe('Addresses', function() {
     _addresses = sinon.mock(addresses)
   })
 
-  function verifyAll() {
+  function verifyAll () {
     r.verify()
     _addresses.verify()
   }
 
-  afterEach(function() {
+  afterEach(function () {
     r.restore()
     _addresses.restore()
   })
 
-  it('inherits from F1Resource', function() {
+  it('inherits from F1Resource', function () {
     addresses.should.be.an.instanceof(F1Resource)
   })
 
-  describe('create', function() {
-    it('errors when call to new errors', function(done) {
+  describe('create', function () {
+    it('errors when call to new errors', function (done) {
       _addresses.expects('new').yields('error')
 
-      addresses.create({}, function(err, result) {
+      addresses.create({}, function (err, result) {
         err.should.eql('error')
         verifyAll()
         done()
       })
     })
 
-    it('should yield error when call to _post fails', function(done) {
+    it('should yield error when call to _post fails', function (done) {
       _addresses.expects('new').yields(null, {
         firstName: '',
         lastName: ''
       })
       _addresses.expects('_post').yields('error')
 
-      addresses.create({}, function(err, result) {
+      addresses.create({}, function (err, result) {
         err.should.eql('error')
         verifyAll()
         done()
       })
     })
 
-    it('posts merged body to /Addresses', function(done) {
+    it('posts merged body to /Addresses', function (done) {
       var item = {
         foo: 'Jack'
       }
@@ -82,7 +80,7 @@ describe('Addresses', function() {
       })
       _addresses.expects('_post').withArgs('/Addresses', mergedDatum).yields(null, '')
 
-      addresses.create(item, function(err, result) {
+      addresses.create(item, function (err, result) {
         should(err).not.exist
         result.should.eql('')
         verifyAll()
