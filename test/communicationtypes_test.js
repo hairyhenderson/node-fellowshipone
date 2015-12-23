@@ -1,13 +1,11 @@
-'use strict';
-var should = require('should')
 var F1 = require('../lib/f1')
 var CommunicationTypes = require('../lib/communicationtypes')
 var F1Resource = require('../lib/f1resource')
 
-describe('CommunicationTypes', function() {
-  var communicationtypes, f1, config;
+describe('CommunicationTypes', function () {
+  var communicationtypes, f1, config
 
-  beforeEach(function() {
+  beforeEach(function () {
     config = {
       apiURL: 'http://example.com',
       oauth_credentials: {
@@ -21,7 +19,7 @@ describe('CommunicationTypes', function() {
     communicationtypes = new CommunicationTypes(f1)
   })
 
-  it('inherits from F1Resource', function() {
+  it('inherits from F1Resource', function () {
     communicationtypes.should.be.an.instanceof(F1Resource)
   })
 })

@@ -1,13 +1,12 @@
-'use strict';
-var should = require('should')
+require('should')
 var F1 = require('../lib/f1')
 var PersonCommunications = require('../lib/person_communications')
 var Communications = require('../lib/communications')
 
-describe('PersonCommunications', function() {
-  var person_comms, f1, config;
+describe('PersonCommunications', function () {
+  var person_comms, f1, config
 
-  beforeEach(function() {
+  beforeEach(function () {
     config = {
       apiURL: 'http://example.com',
       oauth_credentials: {
@@ -21,17 +20,17 @@ describe('PersonCommunications', function() {
     person_comms = new PersonCommunications(f1, '123')
   })
 
-  it('inherits from Communications', function() {
+  it('inherits from Communications', function () {
     person_comms.should.be.an.instanceof(Communications)
   })
 
-  it('must be given a person ID', function() {
-    (function() {
-      new PersonCommunications(f1)
+  it('must be given a person ID', function () {
+    (function () {
+      PersonCommunications(f1)
     }).should.throw(/requires a person ID/)
   })
 
-  it('has a path beginning with /Person/{id}', function() {
+  it('has a path beginning with /Person/{id}', function () {
     person_comms.path.should.startWith('/People/123')
   })
 })
