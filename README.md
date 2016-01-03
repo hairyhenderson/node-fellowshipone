@@ -7,6 +7,8 @@
 [![Stories in Ready][waffle-ready-image]][waffle-url]
 [![Stories In Progress][waffle-progress-image]][waffle-url]
 
+[![JS Standard Code Style][js-standard-image]][js-standard-url]
+
 # node-fellowshipone
 
 A [Fellowship One](http://developer.fellowshipone.org) API wrapper for Node.js
@@ -129,6 +131,9 @@ Copyright (c) 2014-2015 Dave Henderson
 
 [npm-image]: https://img.shields.io/npm/v/fellowshipone.svg?style=flat
 [npm-url]: https://npmjs.org/package/fellowshipone
+
+[js-standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
+[js-standard-url]: http://standardjs.com/
 
 [waffle-ready-image]: https://badge.waffle.io/hairyhenderson/node-fellowshipone.svg?label=ready&title=Ready
 [waffle-progress-image]: https://badge.waffle.io/hairyhenderson/node-fellowshipone.svg?label=in+progress&title=In+Progress
