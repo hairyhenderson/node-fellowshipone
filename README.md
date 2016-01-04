@@ -42,8 +42,8 @@ var f1 = new F1({
     consumer_secret: '456789'
   }
 })
-f1.get_token(function(err, oauth_credentials, userURL) {
-  request.get(userURL, { oauth: oauth_credentials, json: true }, function(err, res, body) {
+f1.get_token(function (err, oauth_credentials, userURL) {
+  request.get(userURL, { oauth: oauth_credentials, json: true }, function (err, res, body) {
     console.log('hi there, %s %s', body.firstName, body.lastName)
   })
 })
@@ -63,10 +63,28 @@ var config = {
 }
 var f1 = new F1(config)
 // this method is useful for integrating with other APIs
-f1.authenticate(function(err) {
+f1.authenticate(function (err) {
   console.log('got tokens: %s/%s', config.oauth_credentials.token,
     config.oauth_credentials.token_secret)
   console.log('user URL is %s', config.userURL)
+})
+```
+
+### Searching for Households
+
+```javascript
+var f1 = new F1(config)
+f1.authenticate(function (err) {
+  var households = new F1.Households(f1)
+  households.search({
+    searchFor: 'Joe Smith'
+  }, function (err, found) {
+    var count = found.results['@count']
+    console.log('Found %d households', count)
+    if (count > 0) {
+      console.log('Households: %j', found.results.household)
+    }
+  })
 })
 ```
 
