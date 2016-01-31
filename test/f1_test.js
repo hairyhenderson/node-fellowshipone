@@ -255,7 +255,7 @@ describe('F1', function () {
     })
   })
 
-  describe('authenticate', function () {
+  describe('authenticate (Promise version)', function () {
     var f
     beforeEach(function () {
       f = sinon.mock(f1)

@@ -1,4 +1,5 @@
 var sinon = require('sinon')
+require('sinon-as-promised')
 var should = require('should')
 var request = require('request')
 var F1 = require('../lib/f1')
@@ -114,6 +115,87 @@ describe('Communications', function () {
 
       communications.create(item, function (err, result) {
         should(err).not.exist
+        result.should.eql('')
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+  describe('create (with Promise)', function () {
+    it('errors when call to new errors', function (done) {
+      _communications.expects('new').yields('error')
+
+      communications.create({}).catch(function (err) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('should yield error when call to _post fails', function (done) {
+      _communications.expects('new').yields(null, {
+        firstName: '',
+        lastName: ''
+      })
+      _communications.expects('_post').yields('error')
+
+      communications.create({}).catch(function (err) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('posts merged body to /Communications', function (done) {
+      var item = {
+        foo: 'Jack'
+      }
+      var mergedDatum = {
+        communication: {
+          foo: item.foo,
+          lastName: ''
+        }
+      }
+
+      _communications.expects('new').yields(null, {
+        foo: '',
+        lastName: ''
+      })
+      _communications.expects('_post').withArgs('/Communications', mergedDatum).yields(null, '')
+
+      communications.create(item).then(function (result) {
+        result.should.eql('')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('strips communicationType.@generalType if supplied', function (done) {
+      var item = {
+        foo: 'Jack',
+        communicationType: {
+          '@id': '1',
+          '@generalType': 'Telephone'
+        }
+      }
+      var mergedDatum = {
+        communication: {
+          foo: item.foo,
+          lastName: '',
+          communicationType: {
+            '@id': '1'
+          }
+        }
+      }
+
+      _communications.expects('new').yields(null, {
+        foo: '',
+        lastName: ''
+      })
+      _communications.expects('_post').withArgs('/Communications', mergedDatum).yields(null, '')
+
+      communications.create(item).then(function (result) {
         result.should.eql('')
         verifyAll()
         done()

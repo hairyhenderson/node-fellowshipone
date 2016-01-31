@@ -88,4 +88,54 @@ describe('Addresses', function () {
       })
     })
   })
+
+  describe('create (with Promise)', function () {
+    it('errors when call to new errors', function (done) {
+      _addresses.expects('new').yields('error')
+
+      addresses.create({}).catch(function (err) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('should yield error when call to _post fails', function (done) {
+      _addresses.expects('new').yields(null, {
+        firstName: '',
+        lastName: ''
+      })
+      _addresses.expects('_post').yields('error')
+
+      addresses.create({}).catch(function (err) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('posts merged body to /Addresses', function (done) {
+      var item = {
+        foo: 'Jack'
+      }
+      var mergedDatum = {
+        address: {
+          foo: item.foo,
+          lastName: ''
+        }
+      }
+
+      _addresses.expects('new').yields(null, {
+        foo: '',
+        lastName: ''
+      })
+      _addresses.expects('_post').withArgs('/Addresses', mergedDatum).yields(null, '')
+
+      addresses.create(item).then(function (result) {
+        result.should.eql('')
+        verifyAll()
+        done()
+      })
+    })
+  })
 })

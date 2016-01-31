@@ -330,6 +330,52 @@ describe('F1Resource', function () {
     })
   })
 
+  describe('show (with Promise)', function () {
+    it('errors when request errors', function (done) {
+      _f1resource.expects('_get').yields('error')
+
+      f1resource.show(42).catch(function (err) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('errors when request yields unexpected object', function (done) {
+      _f1resource.expects('_get').withArgs('/Data/42').yields(null, {
+        foo: ''
+      })
+
+      f1resource.show(42).catch(function (err) {
+        err.should.eql({
+          statusCode: 502,
+          headers: undefined,
+          message: {
+            foo: ''
+          }
+        })
+        verifyAll()
+        done()
+      })
+    })
+
+    it('returns the object', function (done) {
+      _f1resource.expects('_get').withArgs('/Data/42').yields(null, {
+        datum: {
+          foo: 'bar'
+        }
+      })
+
+      f1resource.show(42).then(function (result) {
+        result.should.eql({
+          foo: 'bar'
+        })
+        verifyAll()
+        done()
+      })
+    })
+  })
+
   describe('new', function () {
     it('errors when request errors', function (done) {
       _f1resource.expects('_get').withArgs('/Data/New').yields('error')
@@ -369,6 +415,53 @@ describe('F1Resource', function () {
 
       f1resource.new(function (err, person) {
         should(err).not.exist
+        person.should.eql({
+          firstName: 'Joe'
+        })
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+  describe('new (with Promise)', function () {
+    it('errors when request errors', function (done) {
+      _f1resource.expects('_get').withArgs('/Data/New').yields('error')
+
+      f1resource.new().catch(function (err) {
+        err.should.eql('error')
+
+        verifyAll()
+        done()
+      })
+    })
+
+    it('errors when request yields unexpected object', function (done) {
+      _f1resource.expects('_get').withArgs('/Data/New').yields(null, {
+        foo: ''
+      })
+
+      f1resource.new().catch(function (err) {
+        err.should.eql({
+          statusCode: 502,
+          headers: undefined,
+          message: {
+            foo: ''
+          }
+        })
+        verifyAll()
+        done()
+      })
+    })
+
+    it('returns the household template', function (done) {
+      _f1resource.expects('_get').withArgs('/Data/New').yields(null, {
+        datum: {
+          firstName: 'Joe'
+        }
+      })
+
+      f1resource.new().then(function (person) {
         person.should.eql({
           firstName: 'Joe'
         })
