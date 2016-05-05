@@ -523,6 +523,59 @@ describe('F1Resource', function () {
     })
   })
 
+  describe('create (with Promise)', function () {
+    it('errors when call to new errors', function (done) {
+      _f1resource.expects('new').yields('error')
+
+      f1resource.create({}).catch(function (err) {
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('should yield error when call to _post fails', function (done) {
+      _f1resource.expects('new').yields(null, {
+        firstName: '',
+        lastName: ''
+      })
+      _f1resource.expects('_post').yields('error')
+
+      f1resource.create({}).then(function (result) {
+        should(err).not.exist
+        err.should.eql('error')
+        verifyAll()
+        done()
+      })
+    })
+
+    it('posts merged body to /Data', function (done) {
+      var datum = {
+        firstName: 'Jack'
+      }
+      var mergedDatum = {
+        datum: {
+          firstName: datum.firstName,
+          lastName: ''
+        }
+      }
+
+      _f1resource.expects('new').yields(null, {
+        firstName: '',
+        lastName: ''
+      })
+      _f1resource.expects('_post').withArgs('/Data', mergedDatum).yields(null, '')
+
+      f1resource.create(datum, function (err, result) {
+        should(err).not.exist
+        result.should.eql('')
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+
   describe('search', function () {
     it('errors when request errors', function (done) {
       _f1resource.expects('_get').yields('error')
