@@ -4,7 +4,7 @@ var PersonAddresses = require('../lib/person_addresses')
 var Addresses = require('../lib/addresses')
 
 describe('PersonAddresses', function () {
-  var person_comms, f1, config
+  var personAddrs, f1, config
 
   beforeEach(function () {
     config = {
@@ -17,11 +17,11 @@ describe('PersonAddresses', function () {
       password: 'swordfish'
     }
     f1 = new F1(config)
-    person_comms = new PersonAddresses(f1, '123')
+    personAddrs = new PersonAddresses(f1, '123')
   })
 
   it('inherits from Addresses', function () {
-    person_comms.should.be.an.instanceof(Addresses)
+    personAddrs.should.be.an.instanceof(Addresses)
   })
 
   it('must be given a person ID', function () {
@@ -31,6 +31,6 @@ describe('PersonAddresses', function () {
   })
 
   it('has a path beginning with /Person/{id}', function () {
-    person_comms.path.should.startWith('/People/123')
+    personAddrs.path.should.startWith('/People/123')
   })
 })
