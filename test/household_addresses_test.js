@@ -4,7 +4,7 @@ var HouseholdAddresses = require('../lib/household_addresses')
 var Addresses = require('../lib/addresses')
 
 describe('HouseholdAddresses', function () {
-  var household_comms, f1, config
+  var householdAddrs, f1, config
 
   beforeEach(function () {
     config = {
@@ -17,11 +17,11 @@ describe('HouseholdAddresses', function () {
       password: 'swordfish'
     }
     f1 = new F1(config)
-    household_comms = new HouseholdAddresses(f1, '123')
+    householdAddrs = new HouseholdAddresses(f1, '123')
   })
 
   it('inherits from Addresses', function () {
-    household_comms.should.be.an.instanceof(Addresses)
+    householdAddrs.should.be.an.instanceof(Addresses)
   })
 
   it('must be given a household ID', function () {
@@ -31,6 +31,6 @@ describe('HouseholdAddresses', function () {
   })
 
   it('has a path beginning with /Households/{id}', function () {
-    household_comms.path.should.startWith('/Households/123')
+    householdAddrs.path.should.startWith('/Households/123')
   })
 })
