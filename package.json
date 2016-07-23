@@ -27,20 +27,20 @@
     "node": ">=4.2.6"
   },
   "dependencies": {
-    "async": "^2.0.0",
+    "async": "^2.0.1",
     "debug": "^2.2.0",
     "jjv": "^1.0.2",
-    "lodash": "^4.0.1",
-    "request": "^2.69.0"
+    "lodash": "^4.13.1",
+    "request": "^2.74.0"
   },
   "devDependencies": {
-    "codeclimate-test-reporter": "^0.3.0",
-    "istanbul": "^0.4.2",
-    "mocha": "^2.4.5",
-    "nsp": "^2.3.1",
+    "codeclimate-test-reporter": "^0.3.3",
+    "istanbul": "^0.4.4",
+    "mocha": "^2.5.3",
+    "nsp": "^2.6.1",
     "should": "^10.0.0",
-    "sinon": "^1.17.3",
-    "standard": "^7.0.0"
+    "sinon": "^1.17.4",
+    "standard": "^7.1.2"
   },
   "standard": {
     "globals": [
