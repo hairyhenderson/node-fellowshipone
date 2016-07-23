@@ -1,5 +1,19 @@
 # Change Log
 
+## [v0.3.4](https://github.com/hairyhenderson/node-fellowshipone/tree/v0.3.4) (2016-07-23)
+[Full Changelog](https://github.com/hairyhenderson/node-fellowshipone/compare/v0.3.3...v0.3.4)
+
+**Merged pull requests:**
+
+- Update should to version 10.0.0 🚀 [\#63](https://github.com/hairyhenderson/node-fellowshipone/pull/63) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Update async to version 2.0.0 🚀 [\#62](https://github.com/hairyhenderson/node-fellowshipone/pull/62) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Update should to version 9.0.0 🚀 [\#61](https://github.com/hairyhenderson/node-fellowshipone/pull/61) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Update standard to version 7.0.0 🚀 [\#58](https://github.com/hairyhenderson/node-fellowshipone/pull/58) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- nsp@2.3.1 breaks build 🚨 [\#56](https://github.com/hairyhenderson/node-fellowshipone/pull/56) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Update standard to version 6.0.4 🚀 [\#55](https://github.com/hairyhenderson/node-fellowshipone/pull/55) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Dropping Node.js 0.10 and 0.12 support. [\#49](https://github.com/hairyhenderson/node-fellowshipone/pull/49) ([hairyhenderson](https://github.com/hairyhenderson))
+- Adding changelog for 0.3.3 [\#48](https://github.com/hairyhenderson/node-fellowshipone/pull/48) ([hairyhenderson](https://github.com/hairyhenderson))
+
 ## [v0.3.3](https://github.com/hairyhenderson/node-fellowshipone/tree/v0.3.3) (2016-01-29)
 [Full Changelog](https://github.com/hairyhenderson/node-fellowshipone/compare/v0.3.2...v0.3.3)
 
