@@ -1,12 +1,13 @@
 var sinon = require('sinon')
-var should = require('should')
+require('should')
 var request = require('request')
 var F1 = require('../lib/f1')
 var Addresses = require('../lib/addresses')
 var F1Resource = require('../lib/f1resource')
+const TestUtils = require('./test_utils')
 
 describe('Addresses', function () {
-  var addresses, f1, r, config, _addresses
+  var addresses, f1, r, config, _addresses, t
 
   beforeEach(function () {
     r = sinon.mock(request)
@@ -22,12 +23,11 @@ describe('Addresses', function () {
     f1 = new F1(config)
     addresses = new Addresses(f1)
     _addresses = sinon.mock(addresses)
+    t = new TestUtils(() => {
+      r.verify()
+      _addresses.verify()
+    })
   })
-
-  function verifyAll () {
-    r.verify()
-    _addresses.verify()
-  }
 
   afterEach(function () {
     r.restore()
@@ -42,11 +42,7 @@ describe('Addresses', function () {
     it('errors when call to new errors', function (done) {
       _addresses.expects('new').yields('error')
 
-      addresses.create({}, function (err, result) {
-        err.should.eql('error')
-        verifyAll()
-        done()
-      })
+      addresses.create({}, t.verifyError('error', done))
     })
 
     it('should yield error when call to _post fails', function (done) {
@@ -56,11 +52,7 @@ describe('Addresses', function () {
       })
       _addresses.expects('_post').yields('error')
 
-      addresses.create({}, function (err, result) {
-        err.should.eql('error')
-        verifyAll()
-        done()
-      })
+      addresses.create({}, t.verifyError('error', done))
     })
 
     it('posts merged body to /Addresses', function (done) {
@@ -80,12 +72,7 @@ describe('Addresses', function () {
       })
       _addresses.expects('_post').withArgs('/Addresses', mergedDatum).yields(null, '')
 
-      addresses.create(item, function (err, result) {
-        should(err).not.exist
-        result.should.eql('')
-        verifyAll()
-        done()
-      })
+      addresses.create(item, t.verifyResult('', done))
     })
   })
 })
