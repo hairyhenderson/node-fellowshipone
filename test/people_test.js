@@ -1,11 +1,11 @@
 var sinon = require('sinon')
-var should = require('should')
 var request = require('request')
 var F1 = require('../lib/f1')
 var People = require('../lib/people')
+const TestUtils = require('./test_utils')
 
 describe('People', function () {
-  var r, people, f1, config, _people
+  var r, people, f1, config, _people, t
 
   beforeEach(function () {
     r = sinon.mock(request)
@@ -21,12 +21,11 @@ describe('People', function () {
     f1 = new F1(config)
     people = new People(f1)
     _people = sinon.mock(people)
+    t = new TestUtils(() => {
+      r.verify()
+      _people.verify()
+    })
   })
-
-  function verifyAll () {
-    r.verify()
-    _people.verify()
-  }
 
   afterEach(function () {
     r.restore()
@@ -37,11 +36,7 @@ describe('People', function () {
     it('errors when request errors', function (done) {
       _people.expects('_get').yields('error')
 
-      people.list(0, function (err, result) {
-        err.should.eql('error')
-        verifyAll()
-        done()
-      })
+      people.list(0, t.verifyError('error', done))
     })
 
     it('errors when request yields unexpected object', function (done) {
@@ -49,17 +44,13 @@ describe('People', function () {
         foo: ''
       }, {})
 
-      people.list(42, function (err, results) {
-        err.should.eql({
-          statusCode: 502,
-          headers: {},
-          message: {
-            foo: ''
-          }
-        })
-        verifyAll()
-        done()
-      })
+      people.list(42, t.verifyError({
+        statusCode: 502,
+        headers: {},
+        message: {
+          foo: ''
+        }
+      }, done))
     })
 
     it('returns the list of people', function (done) {
@@ -69,12 +60,7 @@ describe('People', function () {
         }
       }, {})
 
-      people.list(42, function (err, result) {
-        should(err).not.exist
-        result.should.eql([{}, {}])
-        verifyAll()
-        done()
-      })
+      people.list(42, t.verifyResult([{}, {}], done))
     })
   })
 })
