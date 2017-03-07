@@ -127,7 +127,7 @@ describe('F1', function () {
       }, '')
 
       f1.get_token(function (err, creds, url) {
-        should(err).not.exist
+        should.not.exist(err)
         creds.should.have.property('token', '1234')
         creds.should.have.property('token_secret', 'toksecret')
         url.should.eql('http://example.com/user/1234')
@@ -152,7 +152,7 @@ describe('F1', function () {
       }, '')
 
       f1.get_token(function (err, creds, url) {
-        should(err).not.exist
+        should.not.exist(err)
         config.oauth_credentials.should.have.property('token', '1234')
         config.oauth_credentials.should.have.property('token_secret', 'toksecret')
         config.userURL.should.eql('http://example.com/user/1234')
