@@ -102,7 +102,7 @@ describe('F1Resource', function () {
       }, 'body')
 
       f1resource._get('/mypath', function (err, body, headers) {
-        should(err).not.exist
+        should.not.exist(err)
         body.should.eql('body')
         headers.should.eql({})
         t.verifyAll()
@@ -133,7 +133,7 @@ describe('F1Resource', function () {
       f1resource._get('/mypath', {
         query: 42
       }, function (err, body, headers) {
-        should(err).not.exist
+        should.not.exist(err)
         body.should.eql('bodywithquery')
         headers.should.eql({})
         t.verifyAll()
@@ -180,7 +180,7 @@ describe('F1Resource', function () {
       }, 'postbody')
 
       f1resource._post('/mypath', {}, function (err, body, headers) {
-        should(err).not.exist
+        should.not.exist(err)
         body.should.eql('postbody')
         headers.should.eql({})
         t.verifyAll()
@@ -213,7 +213,7 @@ describe('F1Resource', function () {
       }, 'postbodywithquery')
 
       f1resource._post('/mypath', query, body, function (err, body, headers) {
-        should(err).not.exist
+        should.not.exist(err)
         body.should.eql('postbodywithquery')
         headers.should.eql({})
         t.verifyAll()

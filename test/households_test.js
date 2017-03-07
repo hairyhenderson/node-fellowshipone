@@ -1,4 +1,4 @@
-require('should')
+var should = require('should')
 var F1 = require('../lib/f1')
 var Households = require('../lib/households')
 var F1Resource = require('../lib/f1resource')
@@ -21,6 +21,6 @@ describe('Households', function () {
   })
 
   it('inherits from F1Resource', function () {
-    (households instanceof F1Resource).should.be.true
+    should(households instanceof F1Resource).be.true()
   })
 })
