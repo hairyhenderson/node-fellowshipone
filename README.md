@@ -1,3 +1,7 @@
+:warning: **Unmaintained!** I no longer have need for this module, so will no longer be actively maintaining this. If you want to take over the module, please file an issue!
+
+---
+
 [![Build Status][travis-image]][travis-url]
 [![Code Coverage][coverage-image]][coverage-url]
 [![Code Climate][climate-image]][climate-url]
