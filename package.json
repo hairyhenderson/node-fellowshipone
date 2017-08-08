@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "async": "^2.0.1",
-    "debug": "^2.2.0",
+    "debug": "^3.0.0",
     "jjv": "^1.0.2",
     "lodash": "^4.13.1",
     "request": "^2.74.0"
