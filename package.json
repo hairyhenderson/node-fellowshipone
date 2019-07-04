@@ -4,7 +4,9 @@
   "description": "Fellowship One (F1) API wrapper for Node.js",
   "main": "index.js",
   "scripts": {
-    "test": "make test-travis"
+    "test": "make test-travis",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [
     "fellowshipone",
@@ -31,7 +33,8 @@
     "debug": "^3.0.0",
     "jjv": "^1.0.2",
     "lodash": "^4.13.1",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.4.0",
@@ -51,5 +54,6 @@
       "beforeEach",
       "afterEach"
     ]
-  }
+  },
+  "snyk": true
 }
